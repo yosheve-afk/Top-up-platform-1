@@ -200,6 +200,16 @@ xdg-open index.html     # Linux
 
 ## 🔄 Updates Log
 
+### v2.1 - [2026-10-20 14:27]
+- 🎨 Replaced all emoji icons with custom SVG icons
+- ✨ Added premium trophy icon for leaderboard title
+- 🏅 Added animated medal SVG badges for Top 3 (Gold, Silver, Bronze)
+- 🎯 Added custom icons for all panduan sections (clipboard, search, question, chat)
+- 💬 Replaced emoji in CS contacts with professional WhatsApp & Telegram SVG icons
+- 🌟 Added subtle animations (iconPulse, medalShine) for visual polish
+- 🎨 Enhanced icon styling with drop-shadows and hover effects
+- ♿ Improved accessibility with proper SVG structure
+
 ### v2.0 - [2026-10-20]
 - ✨ Added Hero Section dengan slogan utama
 - ✨ Added Leaderboard Top 10 Buyer

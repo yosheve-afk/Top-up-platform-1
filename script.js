@@ -486,12 +486,33 @@
     const grid = $('#leaderboard-grid');
     grid.innerHTML = '';
     
+    // Medal SVG icons
+    const medals = {
+      1: `<svg class="medal-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="9" fill="#FFD700" stroke="#FFA500" stroke-width="2"/>
+            <path d="M12 7L13.5 10.5L17 11L14.5 13.5L15 17L12 15.5L9 17L9.5 13.5L7 11L10.5 10.5L12 7Z" fill="#FFA500"/>
+          </svg>`,
+      2: `<svg class="medal-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="9" fill="#C0C0C0" stroke="#999999" stroke-width="2"/>
+            <path d="M12 7L13.5 10.5L17 11L14.5 13.5L15 17L12 15.5L9 17L9.5 13.5L7 11L10.5 10.5L12 7Z" fill="#999999"/>
+          </svg>`,
+      3: `<svg class="medal-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="9" fill="#CD7F32" stroke="#8B4513" stroke-width="2"/>
+            <path d="M12 7L13.5 10.5L17 11L14.5 13.5L15 17L12 15.5L9 17L9.5 13.5L7 11L10.5 10.5L12 7Z" fill="#8B4513"/>
+          </svg>`
+    };
+    
     LEADERBOARD_DATA.forEach(entry => {
       const item = document.createElement('div');
       item.className = 'leaderboard-item' + (entry.rank <= 3 ? ' top-3' : '');
       
+      const medalIcon = entry.rank <= 3 ? medals[entry.rank] : '';
+      
       item.innerHTML = `
-        <div class="leaderboard-rank rank-${entry.rank}">#${entry.rank}</div>
+        <div class="leaderboard-rank rank-${entry.rank}">
+          ${medalIcon}
+          <span class="rank-number">#${entry.rank}</span>
+        </div>
         <div class="leaderboard-user">
           <div class="leaderboard-username">${maskUsername(entry.username)}</div>
           <div class="leaderboard-transactions">${entry.transactions} transaksi</div>
