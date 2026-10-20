@@ -534,7 +534,10 @@ input.invalid, textarea.invalid { border-color: var(--red); }
 /* ---------- Leaderboard ---------- */
 
 .leaderboard-section {
+  margin-top: 80px;
   margin-bottom: 56px;
+  padding-top: 56px;
+  border-top: 1px solid var(--border);
 }
 
 .section-head {
@@ -1107,7 +1110,7 @@ input.invalid, textarea.invalid { border-color: var(--red); }
   .progress li { font-size: 12px; }
   .hero { padding: 32px 0 24px; margin-bottom: 32px; }
   .hero-title { font-size: 28px; }
-  .leaderboard-section { margin-bottom: 40px; }
+  .leaderboard-section { margin-top: 60px; margin-bottom: 40px; padding-top: 40px; }
   .leaderboard-item { grid-template-columns: 40px 1fr auto; gap: 12px; padding: 12px 14px; }
   .leaderboard-rank { font-size: 16px; gap: 2px; }
   .leaderboard-item.top-3 .leaderboard-rank { font-size: 20px; }

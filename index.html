@@ -27,26 +27,6 @@
       <p class="hero-subtitle">Dapatkan Robux dengan cepat, harga terjangkau, dan layanan terpercaya. Proses otomatis 24/7.</p>
     </section>
 
-    <!-- ============ LEADERBOARD ============ -->
-    <section class="leaderboard-section" id="leaderboard-section">
-      <div class="section-head">
-        <h2 class="section-title">
-          <svg class="title-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M6 9C6 6.79086 7.79086 5 10 5H14C16.2091 5 18 6.79086 18 9V13C18 15.2091 16.2091 17 14 17H10C7.79086 17 6 15.2091 6 13V9Z" fill="currentColor" opacity="0.2"/>
-            <path d="M12 17V21M12 21H8M12 21H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M6 9C6 6.79086 7.79086 5 10 5H14C16.2091 5 18 6.79086 18 9V13C18 15.2091 16.2091 17 14 17H10C7.79086 17 6 15.2091 6 13V9Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-            <path d="M18 9H19C20.1046 9 21 9.89543 21 11V11C21 12.1046 20.1046 13 19 13H18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M6 9H5C3.89543 9 3 9.89543 3 11V11C3 12.1046 3.89543 13 5 13H6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          Top 10 Buyer
-        </h2>
-        <p class="section-subtitle">Pembeli terbaik bulan ini</p>
-      </div>
-      <div class="leaderboard-grid" id="leaderboard-grid">
-        <!-- Populated by JS -->
-      </div>
-    </section>
-
     <ol class="progress" id="progress" aria-label="Order progress">
       <li data-step="order"><span class="p-num">01</span><span class="p-label">Order</span></li>
       <li data-step="payment"><span class="p-num">02</span><span class="p-label">Payment</span></li>
@@ -232,6 +212,26 @@
           <div class="row"><dt>Paid</dt><dd class="mono" id="succ-total"></dd></div>
         </dl>
         <button type="button" class="btn btn-primary" id="btn-new">Place another order</button>
+      </div>
+    </section>
+
+    <!-- ============ LEADERBOARD ============ -->
+    <section class="leaderboard-section" id="leaderboard-section">
+      <div class="section-head">
+        <h2 class="section-title">
+          <svg class="title-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 9C6 6.79086 7.79086 5 10 5H14C16.2091 5 18 6.79086 18 9V13C18 15.2091 16.2091 17 14 17H10C7.79086 17 6 15.2091 6 13V9Z" fill="currentColor" opacity="0.2"/>
+            <path d="M12 17V21M12 21H8M12 21H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M6 9C6 6.79086 7.79086 5 10 5H14C16.2091 5 18 6.79086 18 9V13C18 15.2091 16.2091 17 14 17H10C7.79086 17 6 15.2091 6 13V9Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+            <path d="M18 9H19C20.1046 9 21 9.89543 21 11V11C21 12.1046 20.1046 13 19 13H18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M6 9H5C3.89543 9 3 9.89543 3 11V11C3 12.1046 3.89543 13 5 13H6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Top 10 Buyer
+        </h2>
+        <p class="section-subtitle">Pembeli terbaik bulan ini</p>
+      </div>
+      <div class="leaderboard-grid" id="leaderboard-grid">
+        <!-- Populated by JS -->
       </div>
     </section>
 

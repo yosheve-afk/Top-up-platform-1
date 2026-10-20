@@ -200,6 +200,12 @@ xdg-open index.html     # Linux
 
 ## 🔄 Updates Log
 
+### v2.2 - [2026-10-20 14:41]
+- 📍 Moved Leaderboard section to bottom (after all order views)
+- 🎨 Added top border separator for better visual hierarchy
+- 📐 Adjusted spacing: margin-top 80px, padding-top 56px
+- 📱 Updated responsive margins for mobile (60px/40px)
+
 ### v2.1 - [2026-10-20 14:27]
 - 🎨 Replaced all emoji icons with custom SVG icons
 - ✨ Added premium trophy icon for leaderboard title
