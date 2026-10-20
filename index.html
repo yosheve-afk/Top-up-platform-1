@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Topline — Robux Top-Up</title>
+  <meta name="description" content="Fast, transparent Robux top-up. Choose a method, pick a package, pay with QRIS.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#" aria-label="Topline home">Topline<span class="brand-dot">.</span></a>
+      <span class="header-meta">Robux top-up &middot; Prototype</span>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- ============ HERO SECTION ============ -->
+    <section class="hero">
+      <h1 class="hero-title">Top Up Robux Instan, Murah & Terpercaya</h1>
+      <p class="hero-subtitle">Dapatkan Robux dengan cepat, harga terjangkau, dan layanan terpercaya. Proses otomatis 24/7.</p>
+    </section>
+
+    <!-- ============ LEADERBOARD ============ -->
+    <section class="leaderboard-section" id="leaderboard-section">
+      <div class="section-head">
+        <h2 class="section-title">🏆 Top 10 Buyer</h2>
+        <p class="section-subtitle">Pembeli terbaik bulan ini</p>
+      </div>
+      <div class="leaderboard-grid" id="leaderboard-grid">
+        <!-- Populated by JS -->
+      </div>
+    </section>
+
+    <ol class="progress" id="progress" aria-label="Order progress">
+      <li data-step="order"><span class="p-num">01</span><span class="p-label">Order</span></li>
+      <li data-step="payment"><span class="p-num">02</span><span class="p-label">Payment</span></li>
+      <li data-step="processing"><span class="p-num">03</span><span class="p-label">Processing</span></li>
+      <li data-step="success"><span class="p-num">04</span><span class="p-label">Delivered</span></li>
+    </ol>
+
+    <!-- ============ STATE 1 · ORDER ============ -->
+    <section class="view" id="view-order" aria-labelledby="h-order">
+      <div class="page-head">
+        <h1 id="h-order" tabindex="-1">Top up Robux</h1>
+        <p class="lede">Choose how you want to receive Robux, enter your details, and pick a package.</p>
+      </div>
+
+      <p class="notice" id="order-notice" role="status" hidden></p>
+
+      <div class="layout">
+        <form id="order-form" novalidate autocomplete="off">
+
+          <!-- Step 1 -->
+          <fieldset class="block">
+            <legend class="block-title"><span class="idx">1</span>Method</legend>
+
+            <div class="tabs" role="tablist" aria-label="Top-up method">
+              <button type="button" class="tab" role="tab" id="tab-username" data-method="username" aria-selected="true"  aria-controls="panel-username" tabindex="0">Via Username</button>
+              <button type="button" class="tab" role="tab" id="tab-gamepass" data-method="gamepass" aria-selected="false" aria-controls="panel-gamepass" tabindex="-1">Via Gamepass</button>
+              <button type="button" class="tab" role="tab" id="tab-login"    data-method="login"    aria-selected="false" aria-controls="panel-login"    tabindex="-1">Via Login</button>
+            </div>
+
+            <!-- Username -->
+            <div class="panel" role="tabpanel" id="panel-username" aria-labelledby="tab-username">
+              <p class="panel-desc">The quickest option. We only need your Roblox username.</p>
+              <div class="field">
+                <label for="u-username">Roblox username</label>
+                <input id="u-username" name="username" type="text" data-rule="username" placeholder="e.g. builderman" spellcheck="false" autocapitalize="off">
+                <p class="field-error" id="u-username-error" aria-live="polite"></p>
+              </div>
+            </div>
+
+            <!-- Gamepass -->
+            <div class="panel" role="tabpanel" id="panel-gamepass" aria-labelledby="tab-gamepass" hidden>
+              <p class="panel-desc">Create a gamepass on any of your experiences and paste its link. No credentials needed.</p>
+              <div class="field">
+                <label for="g-url">Gamepass URL</label>
+                <input id="g-url" name="gamepassUrl" type="url" data-rule="gamepass" placeholder="https://www.roblox.com/game-pass/123456789/..." spellcheck="false" autocapitalize="off">
+                <p class="field-error" id="g-url-error" aria-live="polite"></p>
+              </div>
+              <div class="field">
+                <label for="g-username">Roblox username</label>
+                <input id="g-username" name="gpUsername" type="text" data-rule="username" placeholder="e.g. builderman" spellcheck="false" autocapitalize="off">
+                <p class="field-error" id="g-username-error" aria-live="polite"></p>
+              </div>
+              <div class="callout" id="gp-hint">
+                <span class="callout-k">Gamepass price</span>
+                <span class="callout-v" id="gp-hint-value">Select a package</span>
+                <span class="callout-s">Roblox keeps 30% of every sale, so the gamepass must be priced higher than the amount you receive.</span>
+              </div>
+            </div>
+
+            <!-- Login -->
+            <div class="panel" role="tabpanel" id="panel-login" aria-labelledby="tab-login" hidden>
+              <p class="panel-desc">For accounts that can't use a gamepass. Use only if you're comfortable sharing access.</p>
+              <div class="field">
+                <label for="l-username">Roblox username</label>
+                <input id="l-username" name="loginUsername" type="text" data-rule="username" placeholder="e.g. builderman" spellcheck="false" autocapitalize="off">
+                <p class="field-error" id="l-username-error" aria-live="polite"></p>
+              </div>
+              <div class="field">
+                <label for="l-password">Password</label>
+                <input id="l-password" name="loginPassword" type="password" data-rule="password" autocomplete="new-password">
+                <p class="field-error" id="l-password-error" aria-live="polite"></p>
+              </div>
+              <div class="field">
+                <label for="l-codes">Backup codes</label>
+                <textarea id="l-codes" name="backupCodes" rows="3" data-rule="codes" placeholder="One code per line" spellcheck="false"></textarea>
+                <p class="field-error" id="l-codes-error" aria-live="polite"></p>
+              </div>
+              <p class="security-note">
+                <strong>Security note.</strong> Credentials are used once to complete this order. In this prototype nothing is stored or transmitted &mdash; everything stays in your browser. Change your password after delivery.
+              </p>
+            </div>
+          </fieldset>
+
+          <!-- Step 2 -->
+          <fieldset class="block">
+            <legend class="block-title"><span class="idx">2</span>Package</legend>
+            <div class="pkg-grid" id="pkg-grid" role="radiogroup" aria-label="Robux package"></div>
+            <p class="field-error" id="pkg-error" aria-live="polite"></p>
+          </fieldset>
+        </form>
+
+        <!-- Summary -->
+        <aside class="summary" aria-label="Order summary">
+          <h2 class="summary-title">Summary</h2>
+          <dl class="rows">
+            <div class="row"><dt>Method</dt><dd id="sum-method">Via Username</dd></div>
+            <div class="row"><dt>Account</dt><dd id="sum-account" class="mono">&mdash;</dd></div>
+            <div class="row"><dt>Package</dt><dd id="sum-package">&mdash;</dd></div>
+            <div class="row"><dt>Subtotal</dt><dd id="sum-subtotal" class="mono">&mdash;</dd></div>
+            <div class="row"><dt>Service fee</dt><dd id="sum-fee" class="mono">&mdash;</dd></div>
+            <div class="row total"><dt>Total</dt><dd id="sum-total" class="mono">Rp 0</dd></div>
+          </dl>
+          <button type="submit" form="order-form" class="btn btn-primary btn-block" id="btn-checkout">Proceed to Payment</button>
+          <p class="fine">Payment via QRIS. Invoice is valid for 15 minutes.</p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============ STATE 2 · PAYMENT ============ -->
+    <section class="view" id="view-payment" aria-labelledby="h-payment" hidden>
+      <div class="page-head">
+        <h1 id="h-payment" tabindex="-1">Complete your payment</h1>
+        <p class="lede">Scan the QRIS code with any banking or e-wallet app.</p>
+      </div>
+
+      <div class="layout layout-pay">
+        <div class="qr-card">
+          <div class="qr-frame" id="qr-frame" aria-label="Mock dynamic QRIS code" role="img"></div>
+          <div class="qr-meta">
+            <div>
+              <span class="k">Amount due</span>
+              <span class="v mono" id="pay-amount">Rp 0</span>
+            </div>
+            <div class="right">
+              <span class="k">Expires in</span>
+              <span class="v mono" id="pay-timer">15:00</span>
+            </div>
+          </div>
+          <p class="fine center">Mock QRIS &middot; not a real payment code</p>
+        </div>
+
+        <div class="invoice">
+          <h2 class="summary-title">Invoice <span class="mono muted" id="pay-id"></span></h2>
+          <dl class="rows">
+            <div class="row"><dt>Method</dt><dd id="pay-method"></dd></div>
+            <div class="row"><dt>Account</dt><dd id="pay-account" class="mono"></dd></div>
+            <div class="row"><dt>Robux</dt><dd id="pay-robux" class="mono"></dd></div>
+            <div class="row"><dt>Subtotal</dt><dd id="pay-subtotal" class="mono"></dd></div>
+            <div class="row"><dt>Service fee</dt><dd id="pay-fee" class="mono"></dd></div>
+            <div class="row total"><dt>Total</dt><dd id="pay-total" class="mono"></dd></div>
+          </dl>
+
+          <ol class="steps">
+            <li>Open your banking or e-wallet app.</li>
+            <li>Scan the QR code and confirm the exact amount.</li>
+            <li>Keep this page open. We'll update it automatically.</li>
+          </ol>
+
+          <div class="actions">
+            <button type="button" class="btn btn-primary btn-block" id="btn-paid">Simulate User Paid</button>
+            <button type="button" class="btn btn-ghost btn-block" id="btn-cancel">Cancel order</button>
+          </div>
+          <p class="fine">Prototype control &mdash; the button above stands in for a payment confirmation from the gateway.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ STATE 3 · PROCESSING ============ -->
+    <section class="view view-center" id="view-processing" aria-labelledby="h-processing" hidden>
+      <div class="status-card">
+        <div class="spinner" role="status" aria-label="Loading"></div>
+        <h1 id="h-processing" tabindex="-1">Pesanan sedang diproses</h1>
+        <p class="lede">Payment received. Your order is queued for delivery &mdash; this usually takes a few minutes.</p>
+        <dl class="rows rows-compact">
+          <div class="row"><dt>Order</dt><dd class="mono" id="proc-id"></dd></div>
+          <div class="row"><dt>Account</dt><dd class="mono" id="proc-account"></dd></div>
+          <div class="row"><dt>Robux</dt><dd class="mono" id="proc-robux"></dd></div>
+          <div class="row"><dt>Status</dt><dd><span class="badge badge-amber">Awaiting admin</span></dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ============ STATE 4 · SUCCESS ============ -->
+    <section class="view view-center" id="view-success" aria-labelledby="h-success" hidden>
+      <div class="status-card">
+        <div class="check" aria-hidden="true"></div>
+        <h1 id="h-success" tabindex="-1">Success: Robux Delivered</h1>
+        <p class="lede" id="success-lede"></p>
+        <dl class="rows rows-compact">
+          <div class="row"><dt>Order</dt><dd class="mono" id="succ-id"></dd></div>
+          <div class="row"><dt>Account</dt><dd class="mono" id="succ-account"></dd></div>
+          <div class="row"><dt>Robux</dt><dd class="mono" id="succ-robux"></dd></div>
+          <div class="row"><dt>Paid</dt><dd class="mono" id="succ-total"></dd></div>
+        </dl>
+        <button type="button" class="btn btn-primary" id="btn-new">Place another order</button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ HALAMAN PANDUAN ============ -->
+  <div class="panduan-page" id="panduan-page" hidden>
+    <div class="container">
+      <div class="page-head">
+        <button type="button" class="btn-back" id="btn-back-panduan">← Kembali ke Beranda</button>
+        <h1>Panduan & Tutorial</h1>
+        <p class="lede">Pelajari cara melakukan top-up Robux dengan mudah dan cepat</p>
+      </div>
+
+      <div class="panduan-content">
+        <!-- Cara Order -->
+        <section class="panduan-section">
+          <h2 class="panduan-heading">📋 Cara Melakukan Order</h2>
+          <ol class="panduan-steps">
+            <li>
+              <strong>Pilih Metode Top-Up</strong>
+              <p>Tersedia 3 metode: Via Username (tercepat), Via Gamepass (aman), atau Via Login (untuk akun khusus).</p>
+            </li>
+            <li>
+              <strong>Masukkan Data Akun</strong>
+              <p>Isi username Roblox atau data lain sesuai metode yang dipilih. Pastikan data yang dimasukkan benar.</p>
+            </li>
+            <li>
+              <strong>Pilih Paket Robux</strong>
+              <p>Pilih paket Robux sesuai kebutuhan Anda. Tersedia dari 100 R$ hingga 10.000 R$.</p>
+            </li>
+            <li>
+              <strong>Lanjutkan ke Pembayaran</strong>
+              <p>Klik tombol "Proceed to Payment" dan scan QRIS dengan aplikasi banking atau e-wallet Anda.</p>
+            </li>
+            <li>
+              <strong>Tunggu Proses</strong>
+              <p>Setelah pembayaran terdeteksi, Robux akan dikirim otomatis dalam beberapa menit.</p>
+            </li>
+          </ol>
+        </section>
+
+        <!-- Cara Cari User ID -->
+        <section class="panduan-section">
+          <h2 class="panduan-heading">🔍 Cara Menemukan Roblox User ID</h2>
+          <div class="panduan-card">
+            <p><strong>Metode 1: Melalui Profil Roblox</strong></p>
+            <ol class="panduan-substeps">
+              <li>Buka website <a href="https://www.roblox.com" target="_blank" rel="noopener">Roblox.com</a></li>
+              <li>Login ke akun Roblox Anda</li>
+              <li>Klik ikon profil di pojok kanan atas, lalu pilih "Profile"</li>
+              <li>Lihat URL di address bar browser Anda, contoh: <code>roblox.com/users/123456789/profile</code></li>
+              <li>Angka setelah "/users/" adalah User ID Anda (contoh: 123456789)</li>
+            </ol>
+          </div>
+          <div class="panduan-card">
+            <p><strong>Metode 2: Menggunakan Username (Lebih Mudah)</strong></p>
+            <p>Di platform kami, Anda cukup memasukkan username Roblox. Sistem kami akan otomatis mendeteksi User ID Anda, jadi tidak perlu repot mencari angka ID secara manual.</p>
+          </div>
+        </section>
+
+        <!-- FAQ -->
+        <section class="panduan-section">
+          <h2 class="panduan-heading">❓ FAQ - Pertanyaan yang Sering Diajukan</h2>
+          
+          <div class="faq-item">
+            <h3 class="faq-question">Berapa lama proses pengiriman Robux?</h3>
+            <p class="faq-answer">Biasanya 2-10 menit setelah pembayaran terverifikasi. Jika lebih dari 30 menit, silakan hubungi Customer Service kami.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3 class="faq-question">Apakah data saya aman?</h3>
+            <p class="faq-answer">Ya, sangat aman. Kami tidak menyimpan password atau data sensitif Anda. Semua proses dilakukan secara otomatis dan aman.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3 class="faq-question">Metode pembayaran apa saja yang tersedia?</h3>
+            <p class="faq-answer">Saat ini kami menerima pembayaran via QRIS yang mendukung semua aplikasi banking dan e-wallet di Indonesia (GoPay, OVO, DANA, ShopeePay, dll).</p>
+          </div>
+
+          <div class="faq-item">
+            <h3 class="faq-question">Bagaimana jika pembayaran sudah dilakukan tapi Robux belum masuk?</h3>
+            <p class="faq-answer">
+              Jangan khawatir! Silakan:
+              <ol>
+                <li>Tunggu hingga 30 menit</li>
+                <li>Refresh halaman order Anda</li>
+                <li>Jika masih belum masuk, hubungi CS kami dengan menyertakan Order ID dan bukti pembayaran</li>
+              </ol>
+            </p>
+          </div>
+
+          <div class="faq-item">
+            <h3 class="faq-question">Apakah bisa refund jika salah input username?</h3>
+            <p class="faq-answer">Mohon periksa kembali username sebelum checkout. Jika terjadi kesalahan input, segera hubungi CS sebelum proses pengiriman dimulai. Setelah Robux terkirim, tidak dapat dilakukan refund.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3 class="faq-question">Minimum dan maksimum pembelian berapa?</h3>
+            <p class="faq-answer">Minimum pembelian adalah 100 Robux (Rp 14.000), maksimum 10.000 Robux (Rp 1.240.000) per transaksi. Untuk pembelian dalam jumlah besar, Anda dapat melakukan multiple order atau hubungi CS untuk penawaran khusus.</p>
+          </div>
+        </section>
+
+        <!-- Kontak -->
+        <section class="panduan-section panduan-contact">
+          <h2 class="panduan-heading">💬 Masih Butuh Bantuan?</h2>
+          <p>Tim Customer Service kami siap membantu Anda 24/7</p>
+          <div class="contact-buttons">
+            <a href="https://wa.me/6281234567890" target="_blank" rel="noopener" class="btn btn-primary">
+              📱 WhatsApp
+            </a>
+            <a href="https://t.me/topline_cs" target="_blank" rel="noopener" class="btn btn-primary">
+              💬 Telegram
+            </a>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <div class="footer-section">
+        <h3 class="footer-title">Topline<span class="brand-dot">.</span></h3>
+        <p class="footer-desc">Platform top-up Robux terpercaya dengan proses instan dan harga terjangkau.</p>
+      </div>
+      <div class="footer-section">
+        <h4 class="footer-heading">Navigasi</h4>
+        <ul class="footer-links">
+          <li><a href="#" id="nav-home">Beranda</a></li>
+          <li><a href="#" id="nav-panduan">Panduan & Tutorial</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4 class="footer-heading">Customer Service</h4>
+        <ul class="footer-links">
+          <li><a href="https://wa.me/6281234567890" target="_blank" rel="noopener">📱 WhatsApp: +62 812-3456-7890</a></li>
+          <li><a href="https://t.me/topline_cs" target="_blank" rel="noopener">💬 Telegram: @topline_cs</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">Topline is a frontend prototype. No payments are processed and no data is sent anywhere.</div>
+    </div>
+  </footer>
+
+  <!-- ============ FLOATING CS BUTTON ============ -->
+  <div class="floating-cs" id="floating-cs">
+    <button type="button" class="cs-toggle" id="cs-toggle" aria-label="Customer Service" aria-expanded="false">
+      <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    </button>
+    <div class="cs-menu" id="cs-menu" hidden>
+      <div class="cs-menu-header">Butuh Bantuan?</div>
+      <a href="https://wa.me/6281234567890" target="_blank" rel="noopener" class="cs-menu-item">
+        <span class="cs-icon">📱</span>
+        <span>
+          <strong>WhatsApp</strong>
+          <small>Chat via WhatsApp</small>
+        </span>
+      </a>
+      <a href="https://t.me/topline_cs" target="_blank" rel="noopener" class="cs-menu-item">
+        <span class="cs-icon">💬</span>
+        <span>
+          <strong>Telegram</strong>
+          <small>Chat via Telegram</small>
+        </span>
+      </a>
+    </div>
+  </div>
+
+  <!-- ============ ADMIN / DEBUG PANEL ============ -->
+  <aside class="admin" id="admin" aria-label="Admin debug panel">
+    <button type="button" class="admin-head" id="admin-toggle" aria-expanded="true" aria-controls="admin-body">
+      <span class="admin-title"><span class="dot" id="admin-dot"></span>Admin / Debug</span>
+      <span class="admin-collapse" id="admin-collapse-label">Hide</span>
+    </button>
+    <div class="admin-body" id="admin-body">
+      <p class="admin-status" id="admin-status" role="status" aria-live="polite">No active orders</p>
+      <dl class="rows rows-compact admin-rows" id="admin-details" hidden>
+        <div class="row"><dt>Order</dt><dd class="mono" id="adm-id"></dd></div>
+        <div class="row"><dt>Method</dt><dd id="adm-method"></dd></div>
+        <div class="row"><dt>Account</dt><dd class="mono" id="adm-account"></dd></div>
+        <div class="row"><dt>Robux</dt><dd class="mono" id="adm-robux"></dd></div>
+        <div class="row" id="adm-cred-row" hidden><dt>Credentials</dt><dd class="mono">received (masked)</dd></div>
+      </dl>
+      <button type="button" class="btn btn-light btn-block" id="admin-action" disabled>Admin: Send Robux &amp; Complete Order</button>
+    </div>
+  </aside>
+
+  <script src="script.js"></script>
+</body>
+</html>
